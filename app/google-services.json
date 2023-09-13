@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "69856129065",
+    "project_id": "mosis17928",
+    "storage_bucket": "mosis17928.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:69856129065:android:9579c1809d349aedc86c38",
+        "android_client_info": {
+          "package_name": "elfak.mosis.mosis_17928"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "69856129065-62chs4dr38b00igkggjaj16t3rmgsgf4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0bmffOZaddcFAlN_J2MxYs6woBpkqQxo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "69856129065-62chs4dr38b00igkggjaj16t3rmgsgf4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
