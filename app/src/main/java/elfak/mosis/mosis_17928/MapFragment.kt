@@ -10,12 +10,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.preference.PreferenceManager
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.tasks.Task
 import org.osmdroid.config.Configuration
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
@@ -58,19 +63,7 @@ class MapFragment : Fragment() {
         var latitude = 43.3209
 
 
-        if(ActivityCompat.checkSelfPermission(requireActivity(),
-                android.Manifest.permission.ACCESS_FINE_LOCATION)!=
-            PackageManager.PERMISSION_GRANTED &&
-            ActivityCompat.checkSelfPermission(requireActivity(),
-                android.Manifest.permission.ACCESS_COARSE_LOCATION)!=
-            PackageManager.PERMISSION_GRANTED){
-            requestPermissionLauncher.launch(
-                android.Manifest.permission.ACCESS_FINE_LOCATION
-            )
-        }
-        else{
-            setMyLocationOverlay()
-        }
+
 
 
 
@@ -81,7 +74,7 @@ class MapFragment : Fragment() {
     }
 
     private fun setMyLocationOverlay(){
-        var myLocationOverlay=MyLocationNewOverlay(GpsMyLocationProvider(activity),map)
+        var myLocationOverlay=MyLocationNewOverlay(GpsMyLocationProvider(getActivity()),map)
         myLocationOverlay.enableMyLocation()
         map.overlays.add(myLocationOverlay)
     }
@@ -104,5 +97,7 @@ class MapFragment : Fragment() {
         super.onPause()
         map.onPause()
     }
+
+
 
 }
