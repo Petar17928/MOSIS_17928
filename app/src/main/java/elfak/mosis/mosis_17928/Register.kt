@@ -27,7 +27,7 @@ class Register : AppCompatActivity() {
     private lateinit var pBar: ProgressBar
     private lateinit var textView: TextView
     private lateinit var auth: FirebaseAuth
-    private lateinit var database:FirebaseDatabase
+    private lateinit var db:FirebaseDatabase
     private lateinit var dbRef:DatabaseReference
 
 
@@ -56,8 +56,8 @@ class Register : AppCompatActivity() {
         textView= findViewById(R.id.loginNow)
         auth=FirebaseAuth.getInstance()
 
-        database= FirebaseDatabase.getInstance()
-        dbRef= database.getReference("User")
+        db= FirebaseDatabase.getInstance("https://mosis17928-default-rtdb.europe-west1.firebasedatabase.app/")
+        dbRef= db.reference.child("User")
 
         regButton.setOnClickListener {
 
@@ -100,36 +100,45 @@ class Register : AppCompatActivity() {
                 return@setOnClickListener
 
             }
+            auth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener() { task ->
+                    if (task.isSuccessful) {
+                        Toast.makeText(this, "Account created.", Toast.LENGTH_SHORT).show()
 
 
-            val uid=dbRef.push().key!!
 
-            val newUser = User(uid,username,password,firstname,lastname,phone,email)
 
-            dbRef.child(uid).setValue(newUser).addOnSuccessListener {
-                  editMail.text.clear()
-                  editPass.text.clear()
-                  editFirstName.text.clear()
-                  editLastName.text.clear()
-                  editPhone.text.clear()
-                  editUserName.text.clear()
+                        val uid= auth.currentUser!!.uid
 
-                auth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener() { task ->
-                        if (task.isSuccessful) {
-                            Toast.makeText(this, "Account created.", Toast.LENGTH_SHORT).show()
+                        val newUser = User(uid,username,password,firstname,lastname,phone,email)
+                        val newChildRef = dbRef.push()
+
+                        newChildRef.setValue(newUser).addOnSuccessListener {
+                            editMail.text.clear()
+                            editPass.text.clear()
+                            editFirstName.text.clear()
+                            editLastName.text.clear()
+                            editPhone.text.clear()
+                            editUserName.text.clear()
+
+
                             val intent = Intent(applicationContext, Login::class.java)
                             startActivity(intent)
                             finish()
 
-                        } else {
-                            Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show()
-                        }
-                    }
 
-            }.addOnFailureListener(){
-                Toast.makeText(this, "Failed.", Toast.LENGTH_SHORT).show()
-            }
+                        }.addOnFailureListener(){
+                            Toast.makeText(this, "Failed.", Toast.LENGTH_SHORT).show()
+                        }
+
+
+                    } else {
+                        Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show()
+
+                    }
+                }
+
+
 
 
 
