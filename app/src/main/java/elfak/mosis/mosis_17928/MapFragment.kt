@@ -1,40 +1,26 @@
 package elfak.mosis.mosis_17928
 
-import android.Manifest
 import android.content.Context
-import android.content.pm.PackageManager
-import android.location.Geocoder
-import android.location.Location
-import android.location.LocationManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.preference.PreferenceManager
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.tasks.Task
 import org.osmdroid.config.Configuration
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
+import org.osmdroid.views.overlay.Marker
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
-import java.util.Locale
 
 
 class MapFragment : Fragment() {
-
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var main: MainActivity
     lateinit var map: MapView
-    private val myViewModel:MyViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,14 +33,18 @@ class MapFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_map, container, false)
+
+        val rootView = inflater.inflate(R.layout.fragment_map, container, false) as ViewGroup
+        main = activity as MainActivity
+
+        return rootView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view,savedInstanceState)
 
-        var ctx: Context?=getActivity()?.applicationContext
+        val ctx: Context?= activity?.applicationContext
         Configuration.getInstance().load(ctx,PreferenceManager.getDefaultSharedPreferences((ctx)))
         map=requireView().findViewById(R.id.map)
         map.setMultiTouchControls(true)
@@ -62,15 +52,16 @@ class MapFragment : Fragment() {
         var longitude = 21.8958
         var latitude = 43.3209
 
-
-
-
-
-
-
         map.controller.setZoom(15.0)
-        val startPoint = GeoPoint(latitude, longitude)
+        Toast.makeText(activity, main.getUserLat.toString(), Toast.LENGTH_SHORT).show()
+
+        val startPoint = GeoPoint(main.getUserLat, main.getUserLon)
         map.controller.setCenter(startPoint)
+
+        val startMarker = Marker(map)
+        startMarker.setPosition(startPoint)
+        startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+        map.getOverlays().add(startMarker)
     }
 
     private fun setMyLocationOverlay(){
@@ -97,7 +88,6 @@ class MapFragment : Fragment() {
         super.onPause()
         map.onPause()
     }
-
 
 
 }

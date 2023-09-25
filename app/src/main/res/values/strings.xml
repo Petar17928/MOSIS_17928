@@ -15,4 +15,8 @@
     <string name="first_name">First name</string>
     <string name="last_name">Last name</string>
     <string name="phone_number">Phone number</string>
+    <string name="add">Add</string>
+    <string name="start">Start</string>
+    <string name="find_places">Find places</string>
+    <string name="scores">Scores</string>
 </resources>

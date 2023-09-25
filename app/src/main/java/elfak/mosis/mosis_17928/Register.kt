@@ -110,7 +110,7 @@ class Register : AppCompatActivity() {
 
                         val uid= auth.currentUser!!.uid
 
-                        val newUser = User(uid,username,password,firstname,lastname,phone,email)
+                        val newUser = User(uid,username,0,password,firstname,lastname,phone,email)
                         val newChildRef = dbRef.push()
 
                         newChildRef.setValue(newUser).addOnSuccessListener {

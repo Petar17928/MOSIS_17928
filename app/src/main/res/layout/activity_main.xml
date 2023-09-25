@@ -40,23 +40,54 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loggedas" />
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/mapFrag"
         android:name="elfak.mosis.mosis_17928.MapFragment"
         android:layout_width="match_parent"
         android:layout_height="621dp"
+        android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btn_add"
         android:layout_width="100dp"
         android:layout_height="91dp"
-        android:text="Add"
-        app:cornerRadius="50dp"
+        android:text="@string/add"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/btn_start"
+        android:layout_width="100dp"
+        android:layout_height="91dp"
+        android:text="@string/start"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/loggedas" />
+
+    <Button
+        android:id="@+id/btn_find"
+        android:layout_width="100dp"
+        android:layout_height="91dp"
+        android:text="@string/find_places"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/btn_scores"
+        android:layout_width="101dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/scores"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_logout"
+        android:visibility="gone"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
